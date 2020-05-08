@@ -1,6 +1,13 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Test PHP Connection Script</title>
+    <style>
+    body {
+          background-color: rgba(0, 0, 0, 0.95);
+          color: red;
+    }
+    </style>
+    
 </head>
 <body>
 
