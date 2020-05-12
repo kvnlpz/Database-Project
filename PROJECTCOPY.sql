@@ -18,12 +18,12 @@ CREATE TABLE professor
 
 CREATE TABLE Department
 (
-    unique_number   INT(20)     NOT NULL,
+    unique_num   INT(20)     NOT NULL,
     name            VARCHAR(50) NOT NULL,
     telephone       INT(10)     NOT NULL,
     office_location VARCHAR(50) NOT NULL,
     chair_person    VARCHAR(20) NOT NULL,
-    UNIQUE (unique_number)
+    UNIQUE (unique_num)
 );
 
 
@@ -31,7 +31,7 @@ CREATE TABLE Department
 CREATE TABLE course
 (
     unique_number       INT(20)     NOT NULL,
-    title               VARCHAR(50) NOT NULL,
+    course_title        VARCHAR(50) NOT NULL,
     textbook            VARCHAR(50) NOT NULL,
     units               INT(50)     NOT NULL,
     prerequisite_course VARCHAR(50) NOT NULL,
@@ -41,6 +41,8 @@ CREATE TABLE course
 
 CREATE TABLE sections
 (
+    sec_ssn        INT(20)     NOT NULL,
+    course_num     INT(20)    NOT NULL,
     section_number INT(20)     NOT NULL,
     class_room     VARCHAR(30) NOT NULL,
     meeting_days   VARCHAR(20) NOT NULL,
@@ -79,7 +81,7 @@ VALUES ('374329797', 'Kevin', 'lopez', '1523641898', 'Orange'),
        ('866804103', 'joey', 'diaz', '9352151304', 'Orange'),
        ('841119866', 'brendan', 'schaub', '9201232927', 'Orange');
 
-INSERT INTO Department (unique_number, name, telephone, office_location, chair_person)
+INSERT INTO Department (unique_num, name, telephone, office_location, chair_person)
 VALUES ('101', 'CSE', '8083494548', 'ECS', 'Billy Maze'),
        ('102', 'ECE', '6154477067', 'ECS', 'pauly shore');
 
@@ -89,19 +91,19 @@ VALUES ('932909873', 'BILLY MAZE', '8083494548', 'M', 'cse', '25000', 'PhD', 'Te
        ('673389297', 'PAULY SHORE', '6154477067', 'M', 'ece', '25000', 'PhD', 'test street road', 'Orange', 'CA','97801'),
        ('325140640', 'Annie Lederman', '3441741309', 'F', 'cse', '40000', 'PhD', 'test street', 'Orange', 'CA', '97801');
 
-INSERT INTO course (unique_number, title, textbook, units, prerequisite_course)
+INSERT INTO course (unique_number, course_title, textbook, units, prerequisite_course)
 VALUES ('501', 'C', 'C early Objects', '3', '10'),
        ('502', 'Java', 'HeadFirst Java', '3', '4'),
        ('503', 'DBMS', 'Happy SQL', '3', '5'),
        ('504', 'php', 'The PHP Bible', '3', '10');
 
-INSERT INTO sections (section_number, class_room, meeting_days, beginning_time, ending_time, seats)
-VALUES ('402', 'CS101', 'MW', '1PM', '2PM', '50'),
-       ('403', 'CS102', 'MWF', '2PM', '3PM', '60'),
-       ('404', 'CS103', 'TUTHU', '1PM', '2PM', '40'),
-       ('405', 'CS104', 'MW', '3PM', '4PM', '43'),
-       ('406', 'CS105', 'MWTF', '1PM', '2PM', '35'),
-       ('407', 'CS106', 'THU', '2PM', '3PM', '60');
+INSERT INTO sections (sec_ssn,course_num, section_number, class_room, meeting_days, beginning_time, ending_time, seats)
+VALUES ('932909873','501', '402', 'CS101', 'MW', '1PM', '2PM', '50'),
+       ('932909873','502', '403', 'CS102', 'MWF', '2PM', '3PM', '60'),
+       ('673389297','501', '404', 'CS103', 'TUTHU', '1PM', '2PM', '40'),
+       ('673389297','502', '405', 'CS104', 'MW', '3PM', '4PM', '43'),
+       ('325140640','503', '406', 'CS105', 'MWTF', '1PM', '2PM', '35'),
+       ('325140640','504', '407', 'CS106', 'THU', '2PM', '3PM', '60');
 
 INSERT INTO record (student, course_section, grade)
 VALUES ('gilbert', 'cse', 'A'),
@@ -124,10 +126,14 @@ VALUES ('gilbert', 'cse', 'A'),
        ('erik', 'cse', 'C'),
        ('josh', 'me', 'A'),
        ('will', 'me', 'B');
-
-SELECT social_security_number, title, class_room, meeting_days, beginning_time, ending_time
+       
+SELECT social_security_number, course_title, class_room, meeting_days, beginning_time, ending_time
 FROM professor,
-     sections;
+     sections,
+     course
+WHERE social_security_number = $SSN
+AND sec_ssn = social_security_number
+AND course_num = unique_number;
 
 SELECT unique_number, section_number, count(student)
 FROM course,
