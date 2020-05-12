@@ -29,7 +29,8 @@
                 AND course_num = unique_number");
                 printf("</tr><td>" . "Title" . "</td><td>" . "Classroom" . "</td><td>" . "Days" . "</td><td>" . "start" . "</td><td>" .  "end" . "</td></t$
                 while ($row = mysql_fetch_array($result)) {
-                    printf("</tr><td>" . $row['course_title'] . "</td><td>" . $row['class_room'] . "</td><td>". $row['meeting_days'] . "</td><td>" . $row[$
+                    printf("</tr><td>" . $row['course_title'] . "</td><td>" . $row['class_room'] . "</td><td>". $row['meeting_days'] . "</td><td>" . 
+                        $row[beginning_time] . "</td><td>" . $row[ending_time] . "</td></tr>");
                 }
 
             } else {
