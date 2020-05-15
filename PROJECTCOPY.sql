@@ -64,8 +64,9 @@ CREATE TABLE student
 
 CREATE TABLE record
 (
-    student        VARCHAR(20) NOT NULL,
-    course_section VARCHAR(50) NOT NULL,
+    student_id        INT         NOT NULL,
+    enroll_sec             INT(20)     NOT NULL,
+    enroll_course      INT(20)     NOT NULL,
     grade          VARCHAR(2)  NOT NULL
 );
 
@@ -105,28 +106,29 @@ VALUES ('932909873','501', '402', 'CS101', 'MW', '1PM', '2PM', '50'),
        ('325140640','503', '406', 'CS105', 'MWTF', '1PM', '2PM', '35'),
        ('325140640','504', '407', 'CS106', 'THU', '2PM', '3PM', '60');
 
-INSERT INTO record (student, course_section, grade)
-VALUES ('gilbert', 'cse', 'A'),
-       ('george', 'ece', 'A'),
-       ('khalyla', 'ece', 'D'),
-       ('andrew', 'me', 'A'),
-       ('eddie', 'ece', 'A'),
-       ('derick', 'cse', 'A'),
-       ('cattien', 'ece', 'A'),
-       ('Bert', 'ece', 'A'),
-       ('Tom', 'cse', 'B'),
-       ('Christina', 'cse', 'A'),
-       ('Ennie', 'me', 'B'),
-       ('jessica', 'me', 'C'),
-       ('drew', 'civil', 'A'),
-       ('brian', 'civil', 'B'),
-       ('stevie', 'ece', 'A'),
-       ('Lee', 'ece', 'A'),
-       ('David', 'cse', 'B'),
-       ('erik', 'cse', 'C'),
-       ('josh', 'me', 'A'),
-       ('will', 'me', 'B');
-       
+
+INSERT INTO record (student_id,  enroll_sec,  enroll_course, grade)
+VALUES ('374329797', '402', '501','A'),
+       ('788177019', '402', '501','B'),
+       ('162577960', '403', '502','D'),
+       ('759598028', '405', '503', 'A'),
+       ('567090220', '402','501', 'A'),
+       ('638549896', '403','502', 'A'),
+       ('866804103', '405','503', 'A'),
+       ('841119866', '406','504', 'A'),
+       ('374329797', '407','504', 'B'),
+       ('788177019', '405','503', 'A'),
+       ('162577960', '403','502', 'B'),
+       ('759598028', '402','501', 'C'),
+       ('567090220', '402','501', 'A'),
+       ('638549896', '403','502', 'B'),
+       ('866804103', '406','504', 'A'),
+       ('841119866', '405','503', 'A'),
+       ('567090220', '402','501', 'B'),
+       ('841119866', '403','502', 'C'),
+       ('374329797', '405','503', 'A'),
+       ('162577960', '407','504', 'B');
+
 SELECT social_security_number, course_title, class_room, meeting_days, beginning_time, ending_time
 FROM professor,
      sections,
@@ -135,11 +137,15 @@ WHERE social_security_number = $SSN
 AND sec_ssn = social_security_number
 AND course_num = unique_number;
 
-SELECT unique_number, section_number, count(student)
-FROM course,
-     sections,
-     student,
-     record;
+ SELECT grade, COUNT(*) as 'Count'
+ FROM record, course, sections
+ WHERE unique_number = course_num
+ AND enroll_course = course_num
+ AND enroll_sec = section_number
+ AND section_number =$SEC
+ AND unique_number = $course
+ GROUP BY grade;
+
 
 SELECT unique_number, class_room, meeting_days, COUNT(student) days
 FROM course,
