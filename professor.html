@@ -1,20 +1,36 @@
 <!DOCTYPE HTML>
 <html lang="en">
+<head>
+<style>
+body {
+      background-color: rgba(0, 0, 0, 0.95);
+      color: red;
+}
+</style>
+</head>
 <body>
 <h1>Database System</h1>
 
 
-<form METHOD=POST ACTION="control.php">
+<form METHOD=POST ACTION="professor.php">
     <fieldset>
 
         <legend>Professor</legend>
         <p>
-            SSN: <input type="text" name="SSN"><br><br>
-            COURSE NUMBER: <input type="text" name="COURSE NUMBER"><br>
-             and  SECTION NUMBER: <input type="text" name="SECTION NUMBER"><br>
+              SSN: <input type="text" name="SSN"><br><br>
             <input type="submit">
         </p>
     </fieldset>
 </form>
+<form METHOD=POST ACTION="profSecCourse.php">
+    <fieldset>
+
+            SECTION NUMBER: <input type="text" name="SECTION_NUMBER">
+            COURSE NUMBER: <input type="text" name="COURSE_NUMBER"><br>
+            <input type="submit">
+
+    </fieldset>
+</form>
 </body>
 </html>
+
