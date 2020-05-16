@@ -110,23 +110,28 @@ VALUES ('932909873','501', '402', 'CS101', 'MW', '1PM', '2PM', '50'),
 INSERT INTO record (student_id,  enroll_sec,  enroll_course, grade)
 VALUES ('374329797', '402', '501','A'),
        ('788177019', '402', '501','B'),
-       ('162577960', '403', '502','D'),
+       ('162577960', '405', '503','D'),
        ('759598028', '405', '503', 'A'),
        ('567090220', '402','501', 'A'),
-       ('638549896', '403','502', 'A'),
+       ('638549896', '407','504', 'A'),
        ('866804103', '405','503', 'A'),
        ('841119866', '406','504', 'A'),
        ('374329797', '407','504', 'B'),
        ('788177019', '405','503', 'A'),
        ('162577960', '403','502', 'B'),
        ('759598028', '402','501', 'C'),
-       ('567090220', '402','501', 'A'),
+       ('567090220', '403','502', 'A'),
        ('638549896', '403','502', 'B'),
        ('866804103', '406','504', 'A'),
        ('841119866', '405','503', 'A'),
+       ('567090220', '405','503', 'C'),
+       ('638549896', '405','503', 'B'),
        ('567090220', '402','501', 'B'),
        ('841119866', '403','502', 'C'),
        ('374329797', '405','503', 'A'),
+       ('759598028', '404', '502', 'C'),
+       ('841119866', '404','502', 'A'),
+       ('638549896', '404','502', 'B'),
        ('162577960', '407','504', 'B');
 
 SELECT social_security_number, course_title, class_room, meeting_days, beginning_time, ending_time
@@ -146,16 +151,20 @@ AND course_num = unique_number;
  AND unique_number = $course
  GROUP BY grade;
 
+SELECT course_title, enroll_sec, enroll_course, grade
+FROM course, record
+WHERE enroll_course = unique_number
+AND student_id = $CWID;
 
-SELECT unique_number, class_room, meeting_days, COUNT(student) days
-FROM course,
-     sections,
-     record;
+SELECT unique_number, course_title, section_number, class_room,
+        meeting_days, beginning_time, ending_time, (seats-COUNT(student_i$
+FROM course, record, sections
+WHERE enroll_sec = section_number
+AND unique_number = course_num
+AND enroll_course = $course
+GROUP BY section_number;
 
-SELECT campus_wide_id, title, grade
-FROM student,
-     course,
-     record;
+
 
 
 
