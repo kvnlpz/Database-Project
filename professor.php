@@ -10,9 +10,9 @@
     <tr>
         <td>
             <?php
-            $dbname = 'cs332t18';
-            $dbuser = 'cs332t18';
-            $dbpass = 'eiQuu6ah';
+            $dbname = 'xxxxx';
+            $dbuser = 'xxxxx';
+            $dbpass = 'xxxxx';
             $dbhost = 'localhost';
             $connect = mysql_connect($dbhost, $dbuser, $dbpass) or die("Unable to connect to '$dbhost'");
             $CWID = $_POST["CWID"];
